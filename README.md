@@ -10,6 +10,7 @@ This template sets up a .NET 8 minimal API using Carter for routing and MediatR 
 - [Visual Studio Code](https://code.visualstudio.com/) (or any preferred IDE)
 - [Docker](https://docs.docker.com/engine/install/)
 - [Docker-Compose](https://docs.docker.com/compose/install/)
+- [Make](https://www.gnu.org/software/make/)
 
 ## Getting Started
 
@@ -17,8 +18,8 @@ This template sets up a .NET 8 minimal API using Carter for routing and MediatR 
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/your-repo/dotnet-minimal-api-template.git
-   cd dotnet-minimal-api-template
+   git clone https://github.com/dat1010/dotnet-template.git
+   cd dotnet-template
    ```
 
 2. **Restore Dependencies**
@@ -27,7 +28,13 @@ This template sets up a .NET 8 minimal API using Carter for routing and MediatR 
    dotnet restore
    ```
 
-3. **Run the Application**
+3. **Start Docker Services**
+
+   ```bash
+   make start
+   ```
+
+4. **Run the Application**
 
    ```bash
    dotnet run
@@ -38,17 +45,33 @@ This template sets up a .NET 8 minimal API using Carter for routing and MediatR 
 ## Project Structure
 
 ```
-dotnet-minimal-api-template/
-├── Controllers/
-│   └── DroneEndpoint.cs
-├── Features/
-│   └── Drones/
-│       ├── ListDronesRequest.cs
-│       ├── ListDronesResponse.cs
-│       └── ListDronesHandler.cs
-├── Program.cs
-├── Startup.cs
-└── dotnet-minimal-api-template.csproj
+├── Api/
+│   ├── Core/
+│   │   └── Exceptions/
+│   ├── Data/
+│   │   └── DroneRepository.cs
+│   ├── Endpoints/
+│   │   ├── DroneEndpoints.cs
+│   │   └── DroneHandler.cs
+│   ├── Migrations/
+│   │   ├── 20240725173245_InitialCreate.cs
+│   │   ├── 20240725173245_InitialCreate.Designer.cs
+│   │   └── AppDbContextModelSnapshot.cs
+│   ├── Models/
+│   │   └── Drone.cs
+│   ├── Properties/
+│   │   └── launchSettings.json
+│   ├── Repo/
+│   │   ├── AppDbContext.cs
+│   │   ├── IDroneRepository.cs
+│   │   └── Seeds.cs
+│   ├── Service/
+│   │   └── DroneService.cs
+│   ├── Api.csproj
+│   ├── Dockerfile
+│   ├── Program.cs
+│   ├── appsettings.Development.json
+│   └── appsettings.json
 ```
 
 ## Adding New Features
