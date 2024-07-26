@@ -14,6 +14,18 @@ ifeq ($(UNAME_S),Darwin)
 	@docker-compose --file .development/docker-compose.yml up -d
 endif
 
+rebuild:
+ifndef DC
+	$(error "docker-compose is not installed")
+endif
+ifeq ($(UNAME_S),Linux)
+	@sudo docker-compose --file .development/docker-compose.yml up -d --build
+endif
+ifeq ($(UNAME_S),Darwin)
+	@docker-compose --file .development/docker-compose.yml up -d --build
+endif
+
+
 stop:
 ifndef DC
 	$(error "docker-compose is not installed")
