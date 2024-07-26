@@ -13,30 +13,31 @@ This template sets up a .NET 8 minimal API using Carter for routing and MediatR 
 
 ## Getting Started
 
+
 1. **Clone the Repository**
 
-   \`\`\`bash
+   ```bash
    git clone https://github.com/your-repo/dotnet-minimal-api-template.git
    cd dotnet-minimal-api-template
-   \`\`\`
+   ```
 
 2. **Restore Dependencies**
 
-   \`\`\`bash
+   ```bash
    dotnet restore
-   \`\`\`
+   ```
 
 3. **Run the Application**
 
-   \`\`\`bash
+   ```bash
    dotnet run
-   \`\`\`
+   ```
 
    The application will start on \`http://localhost:5000\`.
 
 ## Project Structure
 
-\`\`\`
+```
 dotnet-minimal-api-template/
 ├── Controllers/
 │   └── DroneEndpoint.cs
@@ -48,15 +49,15 @@ dotnet-minimal-api-template/
 ├── Program.cs
 ├── Startup.cs
 └── dotnet-minimal-api-template.csproj
-\`\`\`
+```
 
 ## Adding New Features
 
 ### 1. Create a New Endpoint
 
-Create a new file in the \`Controllers\` folder for your endpoint.
+Create a new file in the `Controllers\` folder for your endpoint.
 
-\`\`\`csharp
+```csharp
 // Controllers/DroneEndpoint.cs
 public record ListDronesResponse(Drone Drone);
 
@@ -77,25 +78,25 @@ public class DroneEndpoint : ICarterModule
         .WithDescription("List Drones");
     }
 }
-\`\`\`
+```
 
 ### 2. Create a Request and Handler
 
-Create a new folder in the \`Features\` directory for your feature.
+Create a new folder in the `Features\` directory for your feature.
 
-\`\`\`csharp
+```csharp
 // Features/Drones/ListDronesRequest.cs
 using MediatR;
 
 public record ListDronesRequest : IRequest<ListDronesResponse>;
-\`\`\`
+```
 
-\`\`\`csharp
+```csharp
 // Features/Drones/ListDronesResponse.cs
 public record ListDronesResponse(IEnumerable<Drone> Drones);
-\`\`\`
+```
 
-\`\`\`csharp
+```csharp
 // Features/Drones/ListDronesHandler.cs
 using MediatR;
 using System.Threading;
@@ -109,7 +110,7 @@ public class ListDronesHandler : IRequestHandler<ListDronesRequest, ListDronesRe
         return Task.FromResult(new ListDronesResponse(drones));
     }
 }
-\`\`\`
+```
 
 ## Configuration
 
@@ -117,7 +118,7 @@ public class ListDronesHandler : IRequestHandler<ListDronesRequest, ListDronesRe
 
 Configure your application in \`Program.cs\`.
 
-\`\`\`csharp
+```csharp
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -130,13 +131,13 @@ var app = builder.Build();
 app.MapCarter();
 
 app.Run();
-\`\`\`
+```
 
 ### Startup.cs
 
 You can also add configurations in \`Startup.cs\` if needed.
 
-\`\`\`csharp
+```csharp
 public class Startup
 {
     public void ConfigureServices(IServiceCollection services)
@@ -151,5 +152,8 @@ public class Startup
         app.UseEndpoints(endpoints => endpoints.MapCarter());
     }
 }
-\`\`\`
+```
 
+## License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
