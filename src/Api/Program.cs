@@ -1,6 +1,7 @@
 using Api.Data;
 using Api.Repo;
 using Api.Service;
+using Api.Core.Behaviors;
 using Carter;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,8 +22,8 @@ builder.Services.AddCarter();
 builder.Services.AddMediatR(config =>
 {
     config.RegisterServicesFromAssembly(assembly);
-    // config.AddOpenBehavior(typeof(ValidationBehavior<,>));
-    // config.AddOpenBehavior(typeof(LoggingBehavior<,>));
+    //config.AddOpenBehavior(typeof(ValidationBehavior<,>));
+    config.AddOpenBehavior(typeof(LoggingBehavior<,>));
 });
 
 builder.Services.AddScoped<IDroneRepository, DroneRepository>();
@@ -32,13 +33,6 @@ var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
-// app.MapGet("/", () => "Hello World!");
-//
-// app.MapGet("/drones", async (DroneService service) =>
-// {
-//     return Results.Ok(await service.ListDrones());
-// });
 
 if (app.Environment.IsDevelopment() || app.Environment.EnvironmentName == "Testing")
 {
