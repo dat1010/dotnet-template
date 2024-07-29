@@ -1,12 +1,11 @@
 using Api.Models;
 using MediatR;
 using Carter;
-using Microsoft.AspNetCore.Builder;
 using Mapster;
 
 namespace Api.Endpoints;
 
-public record ListDronesResponse(Drone Drone);
+public record ListDronesResponse(IEnumerable<Drone> Drones);
 
 public class DroneEndpoint : ICarterModule
 {
@@ -15,7 +14,7 @@ public class DroneEndpoint : ICarterModule
         app.MapGet("/drone", async (ISender sender) =>
         {
             var result = await sender.Send(new ListDronesRequest());
-            var response = result.Drones.Adapt<IEnumerable<ListDronesResponse>>();
+            var response = result.Adapt<ListDronesResponse>();
             return Results.Ok(response);
         })
         .WithName("ListDrones")
